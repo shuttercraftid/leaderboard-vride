@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMERGING Virtual Ride 2026</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        strava: {
+                            DEFAULT: '#FC4C02',
+                            hover: '#E04300',
+                            light: 'rgba(252, 76, 2, 0.15)',
+                            border: 'rgba(252, 76, 2, 0.4)'
+                        },
+                        darkbg: '#0F1115',
+                        darkcard: '#161920',
+                        darkborder: '#262A34'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0F1115;
+            color: #E2E8F0;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #161920;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2D3342;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FC4C02;
+        }
+        .podium-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .podium-card:hover {
+            transform: translateY(-4px);
+        }
+        @keyframes pulse-glow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+        .animate-pulse-glow {
+            animation: pulse-glow 2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-strava selection:text-white">
+
+    <!-- TOP NAV BAR -->
+    <header class="bg-darkcard border-b border-darkborder sticky top-0 z-30 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-strava p-2 rounded-xl text-white font-bold text-xl flex items-center justify-center w-10 h-10 shadow-lg">
+                    <i class="fa-solid fa-person-biking"></i>
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-lg sm:text-xl tracking-tight text-white flex items-center gap-2">
+                        EMERGING VIRTUAL RIDE
+                    </h1>                    
+                </div>
+            </div>
+
+            <!-- Header Right Controls: Live Status & Clean Refresh Button -->
+            <div class="flex items-center space-x-2">
+                <div class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold uppercase tracking-wider">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse-glow"></span>
+                    LIVE
+                </div>
+                <button onclick="fetchLiveBackendData(true)" title="Refresh Sync" class="text-gray-400 hover:text-white p-2 rounded-lg hover:bg-darkbg transition-colors active:scale-95">
+                    <i class="fa-solid fa-rotate text-sm"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-grow w-full space-y-6">
+
+        <!-- STRAVA RULES & BANNER -->
+        <div class="bg-gradient-to-r from-darkcard via-darkcard to-gray-900 border border-darkborder rounded-2xl p-5 sm:p-6 relative overflow-hidden shadow-lg">
+            <div class="absolute right-0 top-0 bottom-0 w-1/3 bg-gradient-to-l from-strava/10 to-transparent pointer-events-none hidden md:block"></div>
+            
+            <div class="space-y-3 relative z-10">
+                <p class="text-sm text-gray-300 leading-relaxed font-medium">
+                    Ride Anytime, Anywhere • Plan Your Ride and Ride Your Plan • Complete target goal distance to earn your Finisher status on the official leaderboard
+                </p>
+
+                <!-- Rules & Event Info Box (4-Column Layout) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
+                    <div class="flex items-start space-x-3 bg-darkbg/80 p-3 rounded-xl border border-darkborder">
+                        <div class="text-strava text-lg pt-0.5"><i class="fa-solid fa-calendar-days"></i></div>
+                        <div>
+                            <h4 class="text-xs font-bold uppercase text-gray-200">Activity Period</h4>
+                            <p class="text-xs text-gray-400">Nov 16 – Dec 13, 2026</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3 bg-darkbg/80 p-3 rounded-xl border border-darkborder">
+                        <div class="text-strava text-lg pt-0.5"><i class="fa-brands fa-strava"></i></div>
+                        <div>
+                            <h4 class="text-xs font-bold uppercase text-gray-200">Rule 1: Record Activity</h4>
+                            <p class="text-xs text-gray-400">All riders must use Strava to record their cycling activities.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3 bg-darkbg/80 p-3 rounded-xl border border-darkborder">
+                        <div class="text-strava text-lg pt-0.5"><i class="fa-solid fa-users"></i></div>
+                        <div>
+                            <h4 class="text-xs font-bold uppercase text-gray-200">Rule 2: Join Strava Club</h4>
+                            <p class="text-xs text-gray-400">Join the official <a href="https://www.strava.com/clubs/2423145" target="_blank" rel="noopener noreferrer" class="text-strava hover:underline font-semibold inline-flex items-center gap-1">Emerging Cycling Club<i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i></a> for automatic verification.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-3 bg-darkbg/80 p-3 rounded-xl border border-darkborder">
+                        <div class="text-strava text-lg pt-0.5"><i class="fa-solid fa-shield-halved"></i></div>
+                        <div>
+                            <h4 class="text-xs font-bold uppercase text-gray-200">Rule 3: Don't Cheat</h4>
+                            <p class="text-xs text-gray-400">Don't use fake GPS and play fairness.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EVENT OVERVIEW STATS CARDS -->
+        <section class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 w-full">
+            <div class="bg-darkcard p-4 rounded-xl border border-darkborder text-center shadow-md">
+                <span class="text-xs uppercase text-gray-400 font-medium">Target</span>
+                <div id="statTargetGoal" class="text-2xl font-black text-strava mt-1">100.00 <span class="text-xs font-normal">km</span></div>
+                <span class="text-[10px] text-gray-400">Event Target</span>
+            </div>
+            <div class="bg-darkcard p-4 rounded-xl border border-darkborder text-center shadow-md">
+                <span class="text-xs uppercase text-gray-400 font-medium">Participants</span>
+                <div id="statTotalRiders" class="text-2xl font-black text-strava mt-1">0</div>
+                <span class="text-[10px] text-gray-400">Active Riders</span>
+            </div>
+            <div class="bg-darkcard p-4 rounded-xl border border-darkborder text-center shadow-md">
+                <span class="text-xs uppercase text-gray-400 font-medium">Total Distance</span>
+                <div id="statTotalDistance" class="text-2xl font-black text-strava mt-1">0.00 <span class="text-xs font-normal">km</span></div>
+                <span class="text-[10px] text-gray-400">Combined Logs</span>
+            </div>
+            <div class="bg-darkcard p-4 rounded-xl border border-darkborder text-center shadow-md">
+                <span class="text-xs uppercase text-gray-400 font-medium">Finishers</span>
+                <div id="statFinishersCount" class="text-2xl font-black text-strava mt-1">0</div>
+                <span class="text-[10px] text-gray-400">Hit Target Goal</span>
+            </div>
+        </section>
+
+        <!-- PODIUM FINISHER TRACKER -->
+        <section class="space-y-4">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="text-xl font-extrabold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-trophy text-amber-400"></i> PODIUM FINISHER TRACKER
+                    </h3>
+                    <p class="text-xs text-gray-400">Top 3 participants who completed the target goal</p>
+                </div>
+                <div id="syncStatusTag" class="text-xs text-gray-400 hidden sm:block font-mono">
+                    Updated: Just now
+                </div>
+            </div>
+
+            <!-- 3 Podium Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="podiumContainer">
+                <!-- JavaScript renders 1st, 2nd, 3rd podium cards or "Podium available" state -->
+            </div>
+        </section>
+
+        <!-- LEADERBOARD & ACTIVITY LOG TABS SECTION -->
+        <section class="bg-darkcard border border-darkborder rounded-2xl overflow-hidden shadow-lg space-y-0">
+            <!-- Navigation Header for Tabs & Search -->
+            <div class="p-4 sm:p-5 border-b border-darkborder flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-darkcard">
+                <div class="flex space-x-2 bg-darkbg p-1.5 rounded-xl border border-darkborder w-full sm:w-auto">
+                    <button id="tabBtnLeaderboard" onclick="switchTab('leaderboard')" class="flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all bg-strava text-white shadow">
+                        <i class="fa-solid fa-list-ol mr-1"></i> Leaderboard
+                    </button>
+                    <button id="tabBtnActivityLog" onclick="switchTab('activity')" class="flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs sm:text-sm font-bold text-gray-400 hover:text-white transition-all">
+                        <i class="fa-solid fa-stream mr-1"></i> Activity Stream
+                    </button>
+                </div>
+
+                <div class="flex items-center space-x-3 w-full sm:w-auto">
+                    <div class="relative w-full sm:w-64">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+                        <input type="text" id="searchInput" onkeyup="filterData()" placeholder="Search rider..." class="w-full pl-9 pr-4 py-2 bg-darkbg border border-darkborder rounded-xl text-xs text-white focus:outline-none focus:border-strava transition-all">
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 1: LEADERBOARD TABLE -->
+            <div id="leaderboardTab" class="block overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-darkbg/50 text-gray-400 text-[11px] font-semibold uppercase tracking-wider border-b border-darkborder">
+                            <th class="py-3 px-4">Rank</th>
+                            <th class="py-3 px-4">Rider</th>
+                            <th class="py-3 px-4">Distance Progress</th>
+                            <th class="py-3 px-4">Rides</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboardBody" class="divide-y divide-darkborder text-sm">
+                        <!-- Leaderboard Rows rendered via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- TAB 2: LIVE ACTIVITY LOG TABLE -->
+            <div id="activityLogTab" class="hidden overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-darkbg/50 text-gray-400 text-[11px] font-semibold uppercase tracking-wider border-b border-darkborder">
+                            <th class="py-3 px-4">Athlete Name</th>
+                            <th class="py-3 px-4">Distance (km)</th>
+                            <th class="py-3 px-4">Speed (km/h)</th>
+                            <th class="py-3 px-4">Elevation (m)</th>
+                            <th class="py-3 px-4">Moving Time</th>
+                            <th class="py-3 px-4 text-right">Sync Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody id="activityLogBody" class="divide-y divide-darkborder text-sm">
+                        <!-- Activity Feed Rows rendered via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-darkcard border-t border-darkborder py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-400 gap-4">
+            <div class="flex items-center space-x-2">
+                <i class="fa-brands fa-strava text-strava text-lg"></i>
+                <span>Powered by Strava & Google</span>
+            </div>
+            <div>
+                © 2026 NTT Emerging Telco
+            </div>
+        </div>
+    </footer>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast" class="fixed bottom-6 right-6 bg-darkcard border border-strava text-white text-xs font-semibold px-4 py-3 rounded-xl shadow-2xl flex items-center space-x-3 translate-y-24 opacity-0 transition-all duration-300 z-50">
+        <i class="fa-solid fa-circle-check text-strava text-base"></i>
+        <span id="toastMessage">Data updated successfully</span>
+    </div>
+
+    <!-- JAVASCRIPT APPLICATION LOGIC -->
+    <script>
+        // CONFIGURATION: Set your deployed Google Apps Script Web App URL here
+        const APPS_SCRIPT_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwQ0djKaHy-Rglzro3fLfWCqadr2XlU9ssduus7b0WLOfjE-pA_rvEWv4JkVC4SgfkY/exec';
+        const TARGET_GOAL_KM = 100.00;
+        const AUTO_REFRESH_INTERVAL_MS = 300000; // 5 Minutes
+        let autoRefreshTimer = null;
+
+        // HELPER FUNCTION: FORMAT DISTANCE SAFELY TO 2 DECIMAL PLACES
+        function formatDistanceKm(val) {
+            const num = parseFloat(val);
+            return isNaN(num) ? '0.00' : num.toFixed(2);
+        }
+
+        // FALLBACK INITIAL DATASET (WITH CYCLING SPEED KM/H)
+        let sampleLeaderboard = [
+            { rank: 1, athlete_name: 'Marcus Vance', strava_id: '12345678', total_distance_km: 124.20, total_elev_gain_m: 850, total_moving_time: '04:15:30', total_activities: 4, avg_speed_km_h: '29.2', progress: '100%', finisher_status: 'FINISHED' },
+            { rank: 2, athlete_name: 'Elena Rostova', strava_id: '87654321', total_distance_km: 101.50, total_elev_gain_m: 620, total_moving_time: '03:48:00', total_activities: 3, avg_speed_km_h: '26.7', progress: '100%', finisher_status: 'FINISHED' },
+            { rank: 3, athlete_name: 'Julian Thorne', strava_id: '45678912', total_distance_km: 78.40, total_elev_gain_m: 410, total_moving_time: '03:11:12', total_activities: 2, avg_speed_km_h: '24.6', progress: '78.4%', finisher_status: 'IN PROGRESS' }
+        ];
+
+        let sampleActivityLogs = [
+            { athlete_name: 'Elena Rostova', strava_id: '87654321', distance_km: 45.50, elevation_m: 265, moving_time: '01:42:12', avg_speed_km_h: '26.7', type: 'Ride', sync_timestamp: '2026-11-18T10:00:00.000Z' },
+            { athlete_name: 'Marcus Vance', strava_id: '12345678', distance_km: 62.80, elevation_m: 490, moving_time: '02:08:48', avg_speed_km_h: '29.2', type: 'Ride', sync_timestamp: '2026-11-18T09:30:00.000Z' },
+            { athlete_name: 'Julian Thorne', strava_id: '45678912', distance_km: 38.20, elevation_m: 145, moving_time: '01:33:06', avg_speed_km_h: '24.6', type: 'Ride', sync_timestamp: '2026-11-17T16:45:00.000Z' }
+        ];
+
+        // HELPER FUNCTION: FORMAT TIME VALUES CLEANLY (HH:mm:ss)
+        function formatTimeValue(rawTime) {
+            if (!rawTime || rawTime === '-') return '-';
+            if (typeof rawTime === 'string' && rawTime.includes('T')) {
+                const dateObj = new Date(rawTime);
+                if (!isNaN(dateObj.getTime())) {
+                    const hrs = String(dateObj.getUTCHours()).padStart(2, '0');
+                    const mins = String(dateObj.getUTCMinutes()).padStart(2, '0');
+                    const secs = String(dateObj.getUTCSeconds()).padStart(2, '0');
+                    return `${hrs}:${mins}:${secs}`;
+                }
+            }
+            return rawTime.toString();
+        }
+
+        // HELPER FUNCTION: CALCULATE SPEED IN KM/H FROM MOVING TIME & DISTANCE IF NEEDED
+        function getSpeedKmh(movingTimeStr, distanceKm, rawSpeed) {
+            if (rawSpeed && !isNaN(parseFloat(rawSpeed))) {
+                return parseFloat(rawSpeed).toFixed(1);
+            }
+            if (!distanceKm || distanceKm <= 0 || !movingTimeStr || movingTimeStr === '-') return '-';
+            
+            // If raw speed comes as MM:SS pace string from older format, convert pace to km/h
+            if (typeof rawSpeed === 'string' && rawSpeed.includes(':')) {
+                const pParts = rawSpeed.split(':').map(Number);
+                const paceSeconds = pParts.length === 2 ? pParts[0] * 60 + pParts[1] : 0;
+                if (paceSeconds > 0) return (3600 / paceSeconds).toFixed(1);
+            }
+
+            const parts = movingTimeStr.split(':').map(Number);
+            let totalSecs = 0;
+            if (parts.length === 3) {
+                totalSecs = parts[0] * 3600 + parts[1] * 60 + parts[2];
+            } else if (parts.length === 2) {
+                totalSecs = parts[0] * 60 + parts[1];
+            }
+            if (totalSecs <= 0) return '-';
+            const hours = totalSecs / 3600;
+            return (distanceKm / hours).toFixed(1);
+        }
+
+        // INIT APP & AUTO-REFRESH TIMER
+        window.addEventListener('DOMContentLoaded', () => {
+            fetchLiveBackendData(false);
+            startAutoRefreshTimer();
+        });
+
+        // BACKGROUND TIMER CONTROLLER
+        function startAutoRefreshTimer() {
+            if (autoRefreshTimer) clearInterval(autoRefreshTimer);
+            
+            autoRefreshTimer = setInterval(() => {
+                if (!document.hidden) {
+                    fetchLiveBackendData(false);
+                }
+            }, AUTO_REFRESH_INTERVAL_MS);
+        }   
+        
+        // FETCH DATA FROM GOOGLE APPS SCRIPT WEB APP
+        async function fetchLiveBackendData(userInitiated = false) {
+            const refreshBtnIcon = document.querySelector('header button[title="Refresh Sync"] i');
+            if (userInitiated && refreshBtnIcon) {
+                refreshBtnIcon.classList.add('fa-spin');
+            }
+
+            if (!APPS_SCRIPT_WEB_APP_URL || APPS_SCRIPT_WEB_APP_URL === 'YOUR_APPS_SCRIPT_WEB_APP_URL_HERE') {
+                renderDashboard(sampleLeaderboard, sampleActivityLogs);
+                if (userInitiated) showToast("Using sample data. Configure APPS_SCRIPT_WEB_APP_URL in JavaScript.");
+                if (refreshBtnIcon) refreshBtnIcon.classList.remove('fa-spin');
+                return;
+            }
+
+            try {
+                const response = await fetch(APPS_SCRIPT_WEB_APP_URL);
+                const data = await response.json();
+
+                if (data.leaderboard && data.activityLog) {
+                    renderDashboard(data.leaderboard, data.activityLog);
+                    if (userInitiated) showToast("Successfully synced live data!");
+                } else {
+                    renderDashboard(sampleLeaderboard, sampleActivityLogs);
+                }
+            } catch (err) {
+                console.error("Error fetching live backend data:", err);
+                renderDashboard(sampleLeaderboard, sampleActivityLogs);
+                if (userInitiated) showToast("Failed to fetch endpoint data. Displaying fallback data.");
+            } finally {
+                if (refreshBtnIcon) {
+                    setTimeout(() => refreshBtnIcon.classList.remove('fa-spin'), 500);
+                }
+            }
+        }
+
+        // MAIN RENDER CONTROLLER
+        function renderDashboard(leaderboard, activityLog) {
+            renderOverviewHeaderStats(leaderboard);
+            renderPodium(leaderboard);
+            renderLeaderboardTable(leaderboard);
+            renderActivityLogTable(activityLog);
+            
+            const now = new Date();
+            document.getElementById('syncStatusTag').innerText = `Updated: ${now.toLocaleTimeString()}`;
+        }
+
+        // 1. OVERVIEW STATS
+        function renderOverviewHeaderStats(leaderboard) {
+            const targetEl = document.getElementById('statTargetGoal');
+            if (targetEl) {
+                targetEl.innerHTML = `${formatDistanceKm(TARGET_GOAL_KM)} <span class="text-xs font-normal">km</span>`;
+            }
+            document.getElementById('statTotalRiders').innerText = leaderboard.length;
+            
+            const grandTotalDist = leaderboard.reduce((sum, r) => sum + (parseFloat(r.total_distance_km) || 0), 0);
+            document.getElementById('statTotalDistance').innerHTML = `${formatDistanceKm(grandTotalDist)} <span class="text-xs font-normal">km</span>`;
+
+            const totalFinishers = leaderboard.filter(r => r.finisher_status === 'FINISHED' || parseFloat(r.total_distance_km) >= TARGET_GOAL_KM).length;
+            document.getElementById('statFinishersCount').innerText = totalFinishers;
+        }
+
+        // 2. PODIUM FINISHER TRACKER RENDERER (CYCLING SPEED KM/H)
+        function renderPodium(leaderboard) {
+            const container = document.getElementById('podiumContainer');
+
+            const finishers = leaderboard
+                .filter(r => r.finisher_status === 'FINISHED' || parseFloat(r.total_distance_km) >= TARGET_GOAL_KM)
+                .sort((a, b) => (parseInt(a.rank) || 99) - (parseInt(b.rank) || 99));
+
+            const podiumConfig = [
+                { rank: 1, title: '🥇 1st Place', color: 'border-amber-500/50 bg-gradient-to-b from-amber-500/10 via-darkcard to-darkcard', badgeBg: 'bg-amber-500', iconColor: 'text-amber-400' },
+                { rank: 2, title: '🥈 2nd Place', color: 'border-slate-400/40 bg-gradient-to-b from-slate-400/10 via-darkcard to-darkcard', badgeBg: 'bg-slate-400', iconColor: 'text-slate-300' },
+                { rank: 3, title: '🥉 3rd Place', color: 'border-amber-700/40 bg-gradient-to-b from-amber-700/10 via-darkcard to-darkcard', badgeBg: 'bg-amber-700', iconColor: 'text-amber-600' }
+            ];
+
+            container.innerHTML = podiumConfig.map((config, index) => {
+                const finisher = finishers[index];
+
+                if (finisher) {
+                    const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(finisher.athlete_name)}&background=FC4C02&color=fff&bold=true`;
+                    const distVal = parseFloat(finisher.total_distance_km) || 0;
+                    const cleanTime = formatTimeValue(finisher.total_moving_time);
+                    const speedVal = getSpeedKmh(cleanTime, distVal, finisher.avg_speed_km_h || finisher.avg_speed_kmh || finisher.pace_min_km);
+                    const stravaId = finisher.strava_id || finisher.athlete_id || '';
+
+                    const athleteNameHtml = stravaId
+                        ? `<a href="https://www.strava.com/athletes/${stravaId}" target="_blank" rel="noopener noreferrer" class="font-bold text-white text-base hover:text-strava transition-colors flex items-center gap-1.5 group">
+                            ${finisher.athlete_name}
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] text-strava opacity-70 group-hover:opacity-100 transition-opacity" title="View Strava Profile"></i>
+                           </a>`
+                        : `<h4 class="font-bold text-white text-base">${finisher.athlete_name}</h4>`;
+
+                    return `
+                        <div class="podium-card border ${config.color} p-5 rounded-2xl relative overflow-hidden shadow-xl">
+                            <div class="flex items-start justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <img src="${avatarUrl}" alt="${finisher.athlete_name}" class="w-12 h-12 rounded-full border-2 border-strava object-cover">
+                                    <div>
+                                        <div class="flex items-center gap-1.5">
+                                            ${athleteNameHtml}
+                                            <i class="fa-solid fa-circle-check text-strava text-xs" title="Verified Finisher"></i>
+                                        </div>
+                                        <p class="text-[11px] text-gray-400">100 KM Target Completed</p>
+                                    </div>
+                                </div>
+                                <span class="${config.badgeBg} text-darkbg text-[10px] font-black uppercase px-2.5 py-1 rounded-full shadow">
+                                    ${config.title}
+                                </span>
+                            </div>
+
+                            <!-- 3-Column Metrics Grid -->
+                            <div class="grid grid-cols-3 gap-2 mt-5 pt-4 border-t border-darkborder/60">
+                                <div class="bg-darkbg/70 p-2 rounded-xl border border-darkborder text-center">
+                                    <span class="text-[9px] uppercase text-gray-400 block font-medium">Distance</span>
+                                    <span class="text-xs font-bold text-white">${formatDistanceKm(finisher.total_distance_km)} km</span>
+                                </div>
+                                <div class="bg-darkbg/70 p-2 rounded-xl border border-darkborder text-center">
+                                    <span class="text-[9px] uppercase text-gray-400 block font-medium">Avg Speed</span>
+                                    <span class="text-xs font-bold text-sky-400 font-mono">${speedVal} km/h</span>
+                                </div>
+                                <div class="bg-darkbg/70 p-2 rounded-xl border border-darkborder text-center">
+                                    <span class="text-[9px] uppercase text-gray-400 block font-medium">Moving Time</span>
+                                    <span class="text-xs font-bold text-emerald-400 font-mono">${cleanTime}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    return `
+                        <div class="border border-dashed border-darkborder bg-darkcard/50 p-5 rounded-2xl flex flex-col justify-between relative space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-gray-400 uppercase tracking-wider flex items-center gap-1.5">
+                                    <i class="fa-solid fa-award ${config.iconColor}"></i> ${config.title}
+                                </span>
+                                <span class="bg-darkbg text-gray-400 border border-darkborder text-[10px] font-semibold px-2.5 py-0.5 rounded-full">
+                                    Unclaimed
+                                </span>
+                            </div>
+
+                            <div class="py-4 text-center space-y-1">
+                                <div class="text-lg font-black text-strava tracking-wide">Podium available</div>
+                                <p class="text-[11px] text-gray-400">Be the next rider to complete the distance target!</p>
+                            </div>
+
+                            <div class="w-full bg-darkbg rounded-full h-2 overflow-hidden border border-darkborder">
+                                <div class="bg-strava/30 h-full w-0"></div>
+                            </div>
+                        </div>
+                    `;
+                }
+            }).join('');
+        }
+
+        // 3. LEADERBOARD TABLE RENDERER
+        function renderLeaderboardTable(leaderboard) {
+            const tbody = document.getElementById('leaderboardBody');
+
+            tbody.innerHTML = leaderboard.map((rider, index) => {
+                const rank = parseInt(rider.rank) || (index + 1);
+                const isFinisher = rider.finisher_status === 'FINISHED' || parseFloat(rider.total_distance_km) >= TARGET_GOAL_KM;
+                const distance = parseFloat(rider.total_distance_km) || 0;
+                const progressPct = Math.min(100, ((distance / TARGET_GOAL_KM) * 100)).toFixed(1);
+                const stravaId = rider.strava_id || rider.athlete_id || '';
+
+                const athleteNameHtml = stravaId
+                    ? `<a href="https://www.strava.com/athletes/${stravaId}" target="_blank" rel="noopener noreferrer" class="font-bold text-white hover:text-strava transition-colors flex items-center gap-1.5 group">
+                        ${rider.athlete_name}
+                        <i class="fa-brands fa-strava text-strava text-xs group-hover:scale-110 transition-transform" title="View Strava Profile"></i>
+                       </a>`
+                    : `<div class="font-bold text-white flex items-center gap-1.5">
+                        ${rider.athlete_name}
+                        <i class="fa-brands fa-strava text-strava text-xs" title="Strava Club Member"></i>
+                       </div>`;
+
+                const statusBadgeHtml = isFinisher
+                    ? `<span class="text-[11px] text-amber-400 font-bold flex items-center gap-1 mt-0.5">
+                        <i class="fa-solid fa-flag-checkered text-[10px]"></i> FINISHER
+                       </span>`
+                    : `<span class="text-[11px] text-gray-400 font-medium flex items-center gap-1 mt-0.5">
+                        IN PROGRESS
+                       </span>`;
+
+                return `
+                    <tr class="hover:bg-darkbg/40 transition-colors">
+                        <td class="py-4 px-4 font-bold text-gray-300">
+                            ${rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : `#${rank}`}
+                        </td>
+                        <td class="py-4 px-4">
+                            ${athleteNameHtml}
+                            ${statusBadgeHtml}
+                        </td>
+                        <td class="py-4 px-4 min-w-[200px]">
+                            <div class="flex items-center justify-between text-xs mb-1 font-mono">
+                                <span class="font-bold text-white">${formatDistanceKm(distance)} / <span class="text-strava font-bold">${formatDistanceKm(TARGET_GOAL_KM)} km</span></span>
+                                <span class="text-[11px] ${isFinisher ? 'text-amber-400 font-bold' : 'text-gray-400'}">${progressPct}%</span>
+                            </div>
+                            <div class="w-full bg-darkbg rounded-full h-2 overflow-hidden border border-darkborder">
+                                <div class="h-full ${isFinisher ? 'bg-gradient-to-r from-amber-500 to-strava' : 'bg-strava'} transition-all duration-500" style="width: ${progressPct}%"></div>
+                            </div>
+                        </td>
+                        <td class="py-4 px-4 text-gray-300 font-medium">
+                            <span class="bg-darkbg border border-darkborder px-2.5 py-1 rounded-lg text-xs">${rider.total_activities || 1}</span>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // 4. LIVE ACTIVITY LOG TABLE RENDERER (UPDATED FOR SPEED KM/H)
+        function renderActivityLogTable(activityLog) {
+            const tbody = document.getElementById('activityLogBody');
+
+            if (!activityLog || activityLog.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-gray-400 text-xs">No activity log entries found.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = activityLog.map(log => {
+                let formattedTimestamp = log.sync_timestamp || 'Recent';
+                try {
+                    if (log.sync_timestamp) {
+                        const d = new Date(log.sync_timestamp);
+                        formattedTimestamp = d.toLocaleDateString() + ' ' + d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    }
+                } catch (e) {}
+
+                const cleanMovingTime = formatTimeValue(log.moving_time);
+                const distKm = parseFloat(log.distance_km) || 0;
+                const speedVal = getSpeedKmh(cleanMovingTime, distKm, log.avg_speed_km_h || log.avg_speed_kmh || log.pace_min_km);
+                const stravaId = log.strava_id || log.athlete_id || '';
+
+                const nameHtml = stravaId
+                    ? `<a href="https://www.strava.com/athletes/${stravaId}" target="_blank" rel="noopener noreferrer" class="font-semibold text-white text-xs hover:text-strava transition-colors flex items-center gap-1 group">
+                        ${log.athlete_name}
+                        <i class="fa-brands fa-strava text-strava text-[10px] group-hover:scale-110 transition-transform"></i>
+                       </a>`
+                    : `<span class="font-semibold text-white text-xs">${log.athlete_name}</span>`;
+
+                return `
+                    <tr class="hover:bg-darkbg/40 transition-colors">
+                        <td class="py-3 px-4">
+                            ${nameHtml}
+                        </td>
+                        <td class="py-3 px-4 font-bold text-strava text-xs font-mono">${formatDistanceKm(log.distance_km)} km</td>
+                        <td class="py-3 px-4 text-xs font-mono text-strava font-bold">${speedVal} km/h</td>
+                        <td class="py-3 px-4 text-xs font-mono text-emerald-400">${log.elevation_m || 0} m</td>
+                        <td class="py-3 px-4 text-xs font-mono text-gray-300">${cleanMovingTime}</td>
+                        <td class="py-3 px-4 text-right text-xs font-mono text-gray-400">
+                            ${formattedTimestamp}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // TAB SWITCHING
+        function switchTab(tabName) {
+            const leaderboardTab = document.getElementById('leaderboardTab');
+            const activityLogTab = document.getElementById('activityLogTab');
+            const tabBtnLeaderboard = document.getElementById('tabBtnLeaderboard');
+            const tabBtnActivityLog = document.getElementById('tabBtnActivityLog');
+
+            if (tabName === 'leaderboard') {
+                leaderboardTab.classList.remove('hidden');
+                activityLogTab.classList.add('hidden');
+                
+                tabBtnLeaderboard.className = "flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all bg-strava text-white shadow";
+                tabBtnActivityLog.className = "flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs sm:text-sm font-bold text-gray-400 hover:text-white transition-all";
+            } else {
+                leaderboardTab.classList.add('hidden');
+                activityLogTab.classList.remove('hidden');
+
+                tabBtnActivityLog.className = "flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs sm:text-sm font-bold transition-all bg-strava text-white shadow";
+                tabBtnLeaderboard.className = "flex-1 sm:flex-none px-4 py-2 rounded-lg text-xs sm:text-sm font-bold text-gray-400 hover:text-white transition-all";
+            }
+        }
+
+        // SEARCH FILTER
+        function filterData() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            
+            const lbRows = document.querySelectorAll('#leaderboardBody tr');
+            lbRows.forEach(row => {
+                row.style.display = row.innerText.toLowerCase().includes(query) ? '' : 'none';
+            });
+
+            const actRows = document.querySelectorAll('#activityLogBody tr');
+            actRows.forEach(row => {
+                row.style.display = row.innerText.toLowerCase().includes(query) ? '' : 'none';
+            });
+        }
+
+        // TOAST NOTIFICATION
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').innerText = msg;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
