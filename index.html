@@ -85,9 +85,9 @@
     <header class="bg-navy-card border-b border-navy-border sticky top-0 z-30 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center space-x-2.5">
-                <i class="fa-solid fa-person-running text-smartblue text-base sm:text-lg"></i>
+                <i class="fa-solid fa-person-biking text-smartblue text-base sm:text-lg"></i>
                 <h1 class="font-extrabold text-base sm:text-lg tracking-tight text-white flex items-center gap-1.5">
-                    EMERGING VIRTUAL <span class="text-chartreuse">RUN</span>
+                    EMERGING VIRTUAL <span class="text-chartreuse">RIDE</span>
                 </h1>                    
             </div>
 
@@ -111,7 +111,7 @@
         <div class="bg-navy-card border border-navy-border rounded-xl p-5 relative overflow-hidden">
             <div class="space-y-3 relative z-10">
                 <p class="text-xs sm:text-sm text-gray-300 leading-relaxed font-normal">
-                    Run Anytime, Anywhere • Run Your Own Pace • Complete target goal distance to earn your Finisher status on the official leaderboard
+                    Ride Anytime, Anywhere • Plan Your Ride, Ride Your Plan • Complete target goal distance to earn your Finisher status on the official leaderboard.
                 </p>
 
                 <!-- Rules & Event Info Box (4-Column Layout) -->
@@ -127,14 +127,14 @@
                         <div class="text-smartblue text-sm pt-0.5"><i class="fa-brands fa-strava"></i></div>
                         <div>
                             <h4 class="text-[11px] font-bold uppercase text-chartreuse">Rule 1: Record Activity</h4>
-                            <p class="text-[11px] text-gray-400">All runners must use Strava to record their running/walking activities.</p>
+                            <p class="text-[11px] text-gray-400">All riders must use Strava to record their cycling/gravel activities.</p>
                         </div>
                     </div>
                     <div class="flex items-start space-x-2.5 bg-navy/60 p-2.5 rounded-lg border border-navy-border/80">
                         <div class="text-smartblue text-sm pt-0.5"><i class="fa-solid fa-users"></i></div>
                         <div>
                             <h4 class="text-[11px] font-bold uppercase text-chartreuse">Rule 2: Join Strava Club</h4>
-                            <p class="text-[11px] text-gray-400">Join the official <a href="https://www.strava.com/clubs/2286430" target="_blank" rel="noopener noreferrer" class="text-chartreuse hover:underline font-semibold inline-flex items-center gap-1">Emerging Running Club<i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i></a> for automatic verification.</p>
+                            <p class="text-[11px] text-gray-400">Join the official <a href="https://www.strava.com/clubs/2423145" target="_blank" rel="noopener noreferrer" class="text-chartreuse hover:underline font-semibold inline-flex items-center gap-1">Emerging Cycling Club<i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i></a> for automatic verification.</p>
                         </div>
                     </div>
                     <div class="flex items-start space-x-2.5 bg-navy/60 p-2.5 rounded-lg border border-navy-border/80">
@@ -152,13 +152,13 @@
         <section class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 w-full">
             <div class="bg-navy-card p-4 rounded-xl border border-navy-border text-center">
                 <span class="text-[11px] uppercase tracking-wider text-gray-400 font-medium">Target</span>
-                <div id="statTargetGoal" class="text-xl font-bold text-chartreuse mt-0.5">42.00 <span class="text-xs font-normal text-gray-400">km</span></div>
+                <div id="statTargetGoal" class="text-xl font-bold text-chartreuse mt-0.5">100.00 <span class="text-xs font-normal text-gray-400">km</span></div>
                 <span class="text-[10px] text-gray-400">Event Target</span>
             </div>
             <div class="bg-navy-card p-4 rounded-xl border border-navy-border text-center">
                 <span class="text-[11px] uppercase tracking-wider text-gray-400 font-medium">Participants</span>
                 <div id="statTotalRiders" class="text-xl font-bold text-white mt-0.5">0</div>
-                <span class="text-[10px] text-gray-400">Active Runners</span>
+                <span class="text-[10px] text-gray-400">Active Cyclists</span>
             </div>
             <div class="bg-navy-card p-4 rounded-xl border border-navy-border text-center">
                 <span class="text-[11px] uppercase tracking-wider text-gray-400 font-medium">Total Distance</span>
@@ -225,7 +225,7 @@
                     <div class="flex items-center space-x-3 w-full sm:w-auto">
                         <div class="relative w-full sm:w-56">
                             <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
-                            <input type="text" id="searchInput" onkeyup="filterLeaderboardData()" placeholder="Search runner..." class="w-full pl-8 pr-3 py-1.5 bg-navy border border-navy-border rounded-lg text-xs text-white focus:outline-none focus:border-smartblue transition-colors">
+                            <input type="text" id="searchInput" onkeyup="filterLeaderboardData()" placeholder="Search rider..." class="w-full pl-8 pr-3 py-1.5 bg-navy border border-navy-border rounded-lg text-xs text-white focus:outline-none focus:border-smartblue transition-colors">
                         </div>
                     </div>
                 </div>
@@ -236,7 +236,7 @@
                         <thead>
                             <tr class="bg-navy/50 text-gray-400 text-[11px] font-semibold uppercase tracking-wider border-b border-navy-border">
                                 <th class="py-3 px-4 w-12 text-center">Rank</th>
-                                <th class="py-3 px-4">Runner</th>
+                                <th class="py-3 px-4">Rider</th>
                                 <th class="py-3 px-4">Distance Progress</th>
                             </tr>
                         </thead>
@@ -252,7 +252,7 @@
                         <thead>
                             <tr class="bg-navy/50 text-gray-400 text-[11px] font-semibold uppercase tracking-wider border-b border-navy-border">
                                 <th class="py-3 px-4 w-12 text-center">Rank</th>
-                                <th class="py-3 px-4">Runner</th>
+                                <th class="py-3 px-4">Rider</th>
                                 <th class="py-3 px-4">Distance Progress</th>
                             </tr>
                         </thead>
@@ -268,7 +268,7 @@
                         <thead>
                             <tr class="bg-navy/50 text-gray-400 text-[11px] font-semibold uppercase tracking-wider border-b border-navy-border">
                                 <th class="py-3 px-4 w-12 text-center">Rank</th>
-                                <th class="py-3 px-4">Runner</th>
+                                <th class="py-3 px-4">Rider</th>
                                 <th class="py-3 px-4">FINISH TIME</th>
                             </tr>
                         </thead>
@@ -305,7 +305,7 @@
                     <h3 class="text-lg font-bold text-white flex items-center gap-2">
                         <i class="fa-solid fa-clock-rotate-left text-smartblue text-sm"></i> ACTIVITY STREAM
                     </h3>
-                    <p class="text-xs text-gray-400">Real-time log of recent runner sync activities</p>
+                    <p class="text-xs text-gray-400">Real-time log of recent rider sync activities</p>
                 </div>
             </div>
 
@@ -331,7 +331,7 @@
                             <tr class="bg-navy/50 text-gray-400 text-[11px] font-semibold uppercase tracking-wider border-b border-navy-border">
                                 <th class="py-3 px-4">Athlete Name</th>
                                 <th class="py-3 px-4">Distance (km)</th>
-                                <th class="py-3 px-4">Pace (min/km)</th>
+                                <th class="py-3 px-4">Avg Speed (km/h)</th>
                                 <th class="py-3 px-4">Elevation (m)</th>
                                 <th class="py-3 px-4">Moving Time</th>
                                 <th class="py-3 px-4 text-right">Sync Timestamp</th>
@@ -387,8 +387,8 @@
     <!-- JAVASCRIPT APPLICATION LOGIC -->
     <script>
         // CONFIGURATION: Set your deployed Google Apps Script Web App URL here
-        const APPS_SCRIPT_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwOBQ2L_yAQ34_LdSm6DrSqtEfVBQ_MdgO07MmayjDwZzYzajMYQRM1kVZHwWIPgc4K-Q/exec';
-        const TARGET_GOAL_KM = 42.00;
+        const APPS_SCRIPT_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwQ0djKaHy-Rglzro3fLfWCqadr2XlU9ssduus7b0WLOfjE-pA_rvEWv4JkVC4SgfkY/exec';
+        const TARGET_GOAL_KM = 100.00;
         const AUTO_REFRESH_INTERVAL_MS = 300000; // 5 Minutes
         let autoRefreshTimer = null;
         let finisherLogGlobal = [];
@@ -432,17 +432,15 @@
 
         // FALLBACK INITIAL DATASET
         let sampleLeaderboard = [
-            { rank: 1, athlete_name: 'Marcus Vance', strava_id: '12345678', total_distance_km: 48.20, total_elev_gain_m: 350, total_moving_time: '04:01:00', total_activities: 5, avg_pace_min_km: '5:00', progress: '100%', finisher_status: 'FINISHED', finish_timestamp: '2026-11-18T14:30:00.000Z' },
-            { rank: 2, athlete_name: 'Elena Rostova', strava_id: '87654321', total_distance_km: 62.50, total_elev_gain_m: 220, total_moving_time: '05:30:45', total_activities: 6, avg_pace_min_km: '5:18', progress: '100%', finisher_status: 'FINISHED', finish_timestamp: '2026-11-19T09:15:00.000Z' },
-            { rank: 3, athlete_name: 'Julian Thorne', strava_id: '45678912', total_distance_km: 31.40, total_elev_gain_m: 180, total_moving_time: '03:08:24', total_activities: 3, avg_pace_min_km: '6:00', progress: '74.8%', finisher_status: 'IN PROGRESS' }
+            { rank: 1, athlete_name: 'Marcus Vance', strava_id: '12345678', total_distance_km: 112.50, total_elev_gain_m: 850, total_moving_time: '03:45:00', total_activities: 4, avg_speed_km_h: '30.0', progress: '100%', finisher_status: 'FINISHED', finish_timestamp: '2026-11-18T14:30:00.000Z' },
+            { rank: 2, athlete_name: 'Elena Rostova', strava_id: '87654321', total_distance_km: 104.20, total_elev_gain_m: 620, total_moving_time: '03:52:15', total_activities: 3, avg_speed_km_h: '26.9', progress: '100%', finisher_status: 'FINISHED', finish_timestamp: '2026-11-19T09:15:00.000Z' },
+            { rank: 3, athlete_name: 'Julian Thorne', strava_id: '45678912', total_distance_km: 74.80, total_elev_gain_m: 480, total_moving_time: '02:46:00', total_activities: 2, avg_speed_km_h: '27.0', progress: '74.8%', finisher_status: 'IN PROGRESS' }
         ];
 
         let sampleActivityLogs = [
-            { athlete_name: 'Elena Rostova', strava_id: '87654321', distance_km: 10.50, elevation_m: 65, moving_time: '00:57:45', avg_pace_min_km: '5:30', type: 'Run', sync_timestamp: '2026-11-18T10:00:00.000Z' },
-            { athlete_name: 'Marcus Vance', strava_id: '12345678', distance_km: 12.80, elevation_m: 90, moving_time: '01:04:00', avg_pace_min_km: '5:00', type: 'Run', sync_timestamp: '2026-11-18T09:30:00.000Z' },
-            { athlete_name: 'Julian Thorne', strava_id: '45678912', distance_km: 8.20, elevation_m: 45, moving_time: '00:49:12', avg_pace_min_km: '6:00', type: 'Run', sync_timestamp: '2026-11-17T16:45:00.000Z' },
-            { athlete_name: 'Elena Rostova', strava_id: '87654321', distance_km: 12.00, elevation_m: 75, moving_time: '01:05:00', avg_pace_min_km: '5:25', type: 'Run', sync_timestamp: '2026-11-16T08:20:00.000Z' },
-            { athlete_name: 'Marcus Vance', strava_id: '12345678', distance_km: 15.00, elevation_m: 110, moving_time: '01:15:00', avg_pace_min_km: '5:00', type: 'Run', sync_timestamp: '2026-11-15T17:10:00.000Z' }
+            { athlete_name: 'Elena Rostova', strava_id: '87654321', distance_km: 42.50, elevation_m: 265, moving_time: '01:32:10', avg_speed_km_h: '27.7', type: 'Ride', sync_timestamp: '2026-11-18T10:00:00.000Z' },
+            { athlete_name: 'Marcus Vance', strava_id: '12345678', distance_km: 55.00, elevation_m: 410, moving_time: '01:48:00', avg_speed_km_h: '30.5', type: 'Ride', sync_timestamp: '2026-11-18T09:30:00.000Z' },
+            { athlete_name: 'Julian Thorne', strava_id: '45678912', distance_km: 38.20, elevation_m: 245, moving_time: '01:25:00', avg_speed_km_h: '26.9', type: 'Ride', sync_timestamp: '2026-11-17T16:45:00.000Z' }
         ];
 
         // HELPER FUNCTION: FORMAT TIME VALUES CLEANLY (HH:mm:ss)
@@ -460,10 +458,10 @@
             return rawTime.toString();
         }
 
-        // HELPER FUNCTION: CALCULATE PACE IN MIN/KM FROM MOVING TIME & DISTANCE
-        function getPaceMinKm(movingTimeStr, distanceKm, rawPace) {
-            if (rawPace && typeof rawPace === 'string' && rawPace.includes(':')) {
-                return rawPace;
+        // HELPER FUNCTION: CALCULATE AVERAGE SPEED IN KM/H FROM MOVING TIME & DISTANCE
+        function getSpeedKmh(movingTimeStr, distanceKm, rawSpeed) {
+            if (rawSpeed && !isNaN(parseFloat(rawSpeed))) {
+                return parseFloat(rawSpeed).toFixed(1);
             }
             if (!distanceKm || distanceKm <= 0 || !movingTimeStr || movingTimeStr === '-') return '-';
 
@@ -476,10 +474,9 @@
             }
             if (totalSecs <= 0) return '-';
             
-            const paceSecPerKm = totalSecs / distanceKm;
-            const pMins = Math.floor(paceSecPerKm / 60);
-            const pSecs = Math.floor(paceSecPerKm % 60);
-            return `${pMins}:${pSecs.toString().padStart(2, '0')}`;
+            const hours = totalSecs / 3600;
+            const speed = distanceKm / hours;
+            return speed.toFixed(1);
         }
 
         // HELPER FUNCTION: EXTRACT FINISH TIMESTAMP FOR ATHLETE
@@ -612,7 +609,7 @@
                     const avatarUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(finisher.athlete_name)}&background=1C2541&color=3A86FF&bold=true`;
                     const distVal = parseFloat(finisher.total_distance_km) || 0;
                     const cleanTime = formatTimeValue(finisher.total_moving_time);
-                    const paceVal = getPaceMinKm(cleanTime, distVal, finisher.avg_pace_min_km || finisher.avg_speed_km_h || finisher.avg_speed_kmh);
+                    const speedVal = getSpeedKmh(cleanTime, distVal, finisher.avg_speed_km_h || finisher.avg_speed_kmh || finisher.avg_pace_min_km);
                     const stravaId = finisher.strava_id || finisher.athlete_id || '';
                     const rawFinishTs = getAthleteFinishTimestamp(finisher);
                     const formattedFinishTime = formatDateTime(rawFinishTs);
@@ -632,7 +629,7 @@
                                         <img src="${avatarUrl}" alt="${finisher.athlete_name}" class="w-10 h-10 rounded-full border border-navy-border object-cover">
                                         <div>
                                             ${athleteNameHtml}
-                                            <p class="text-[11px] text-gray-400 mt-0.5">42 KM Target Completed</p>
+                                            <p class="text-[11px] text-gray-400 mt-0.5">100 KM Target Completed</p>
                                         </div>
                                     </div>
                                     <span class="text-[10px] font-bold px-2 py-0.5 rounded border ${config.badge}">
@@ -647,8 +644,8 @@
                                         <span class="text-xs font-bold text-white">${formatDistanceKm(finisher.total_distance_km)} km</span>
                                     </div>
                                     <div>
-                                        <span class="text-[9px] uppercase tracking-wider text-gray-400 block font-medium">Avg Pace</span>
-                                        <span class="text-xs font-bold text-smartblue font-mono">${paceVal} /km</span>
+                                        <span class="text-[9px] uppercase tracking-wider text-gray-400 block font-medium">Avg Speed</span>
+                                        <span class="text-xs font-bold text-smartblue font-mono">${speedVal} km/h</span>
                                     </div>
                                     <div>
                                         <span class="text-[9px] uppercase tracking-wider text-gray-400 block font-medium">Moving Time</span>
@@ -678,7 +675,7 @@
 
                             <div class="py-3 text-center">
                                 <div class="text-xs font-bold text-gray-300">Podium available</div>
-                                <p class="text-[11px] text-gray-500 mt-0.5">Be the next runner to complete the distance target!</p>
+                                <p class="text-[11px] text-gray-500 mt-0.5">Be the next rider to complete the distance target!</p>
                             </div>
 
                             <div class="w-full bg-navy rounded-full h-1 overflow-hidden">
@@ -768,7 +765,7 @@
             const tbody = document.getElementById('leaderboardBody');
 
             if (!leaderboardPageData || leaderboardPageData.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="3" class="py-6 text-center text-gray-400 text-xs">No runners found.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="3" class="py-6 text-center text-gray-400 text-xs">No riders found.</td></tr>`;
                 return;
             }
 
@@ -793,7 +790,7 @@
                     : `<span class="text-[10px] text-gray-400 font-medium">IN PROGRESS</span>`;
 
                 const totalRunsHtml = `<span class="text-[11px] text-gray-400 font-medium flex items-center gap-1">
-                    <i class="fa-solid fa-person-running text-[10px] text-smartblue"></i> ${totalRuns} ${totalRuns === 1 ? 'Run' : 'Runs'}
+                    <i class="fa-solid fa-person-biking text-[10px] text-smartblue"></i> ${totalRuns} ${totalRuns === 1 ? 'Ride' : 'Rides'}
                 </span>`;
 
                 const finishTimeLineHtml = isFinisher && formattedFinishTime !== '-'
@@ -840,7 +837,7 @@
             const tbody = document.getElementById('leaderboardDistBody');
 
             if (!leaderboardPageData || leaderboardPageData.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="3" class="py-6 text-center text-gray-400 text-xs">No runners found.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="3" class="py-6 text-center text-gray-400 text-xs">No riders found.</td></tr>`;
                 return;
             }
 
@@ -862,7 +859,7 @@
                     : `<span class="text-[10px] text-gray-400 font-medium">IN PROGRESS</span>`;
 
                 const totalRunsHtml = `<span class="text-[11px] text-gray-400 font-medium flex items-center gap-1">
-                    <i class="fa-solid fa-person-running text-[10px] text-smartblue"></i> Activity: ${totalRuns}
+                    <i class="fa-solid fa-person-biking text-[10px] text-smartblue"></i> Activity: ${totalRuns}
                 </span>`;
 
                 return `
@@ -892,7 +889,7 @@
             const tbody = document.getElementById('leaderboardTimeBody');
 
             if (!leaderboardPageData || leaderboardPageData.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="3" class="py-6 text-center text-gray-400 text-xs">No runners found.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="3" class="py-6 text-center text-gray-400 text-xs">No riders found.</td></tr>`;
                 return;
             }
 
@@ -915,7 +912,7 @@
                     : `<span class="text-[10px] text-gray-400 font-medium">IN PROGRESS</span>`;
 
                 const totalRunsHtml = `<span class="text-[11px] text-gray-400 font-medium flex items-center gap-1">
-                    <i class="fa-solid fa-person-running text-[10px] text-smartblue"></i> Activity: ${totalRuns}
+                    <i class="fa-solid fa-person-biking text-[10px] text-smartblue"></i> Activity: ${totalRuns}
                 </span>`;
 
                 return `
@@ -1045,7 +1042,7 @@
 
                 const cleanMovingTime = formatTimeValue(log.moving_time);
                 const distKm = parseFloat(log.distance_km || log.distance) || 0;
-                const paceVal = getPaceMinKm(cleanMovingTime, distKm, log.avg_pace_min_km || log.avg_speed_km_h || log.avg_speed_kmh);
+                const speedVal = getSpeedKmh(cleanMovingTime, distKm, log.avg_speed_km_h || log.avg_speed_kmh || log.avg_pace_min_km);
                 const stravaId = log.strava_id || log.athlete_id || '';
 
                 const nameHtml = stravaId
@@ -1058,7 +1055,7 @@
                     <tr class="hover:bg-navy/40 transition-colors">
                         <td class="py-3 px-4">${nameHtml}</td>
                         <td class="py-3 px-4 font-semibold text-white font-mono">${formatDistanceKm(distKm)} km</td>
-                        <td class="py-3 px-4 font-mono text-smartblue font-semibold">${paceVal} /km</td>
+                        <td class="py-3 px-4 font-mono text-smartblue font-semibold">${speedVal} km/h</td>
                         <td class="py-3 px-4 font-mono text-gray-300">${log.elevation_m || log.elevation || 0} m</td>
                         <td class="py-3 px-4 font-mono text-gray-300">${cleanMovingTime}</td>
                         <td class="py-3 px-4 text-right font-mono text-gray-400">${formattedTimestamp}</td>
